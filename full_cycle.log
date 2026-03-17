@@ -60,3 +60,11 @@
      Please open C:\Users\saite\OneDrive\Documents\Agent applies\job_applications.xlsx, mark some jobs with Applied, and try again.
 [Tue 03/17/2026 14:08:34.82] Email sending completed 
 [Tue 03/17/2026 14:08:34.84] Full job hunting cycle completed 
+[Tue 03/17/2026 17:55:12.94] Starting full job hunting cycle 
+[Tue 03/17/2026 17:55:12.97] Starting job scraping 
+python: can't open file 'C:\\Users\\saite\\OneDrive\\Documents\\Agent applies\\job_hunter.py': [Errno 2] No such file or directory
+[Tue 03/17/2026 17:55:13.05] Job scraping completed 
+[Tue 03/17/2026 17:55:18.20] Starting email sending 
+python: can't open file 'C:\\Users\\saite\\OneDrive\\Documents\\Agent applies\\send_emails.py': [Errno 2] No such file or directory
+[Tue 03/17/2026 17:55:18.26] Email sending completed 
+[Tue 03/17/2026 17:55:18.29] Full job hunting cycle completed 
