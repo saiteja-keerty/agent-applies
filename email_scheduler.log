@@ -1,0 +1,789 @@
+[Tue 03/17/2026 13:51:56.45] Starting automated email sending 
+
+======================================================================
+Traceback (most recent call last):
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 385, in <module>
+    main()
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 271, in main
+    print("  \U0001f4e7 EMAIL SENDER FOR JOB APPLICATIONS")
+  File "C:\Users\saite\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4e7' in position 2: character maps to <undefined>
+[Tue 03/17/2026 13:51:57.23] Email sending completed 
+[Tue 03/17/2026 13:52:38.58] Starting automated email sending 
+
+======================================================================
+  EMAIL SENDER FOR JOB APPLICATIONS
+======================================================================
+
+  WARNING: REAL SEND MODE � Actually send emails? (yes/no): Traceback (most recent call last):
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 385, in <module>
+    main()
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 285, in main
+    print(f"  \U0001f4c2 Reading {INPUT_FILE}...")
+  File "C:\Users\saite\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4c2' in position 2: character maps to <undefined>
+[Tue 03/17/2026 13:52:39.28] Email sending completed 
+[Tue 03/17/2026 13:53:01.01] Starting automated email sending 
+
+======================================================================
+  EMAIL SENDER FOR JOB APPLICATIONS
+======================================================================
+
+  WARNING: REAL SEND MODE � Actually send emails? (yes/no):   Reading C:\Users\saite\OneDrive\Documents\Agent applies\job_applications.xlsx...
+  TEST MODE � using first job found
+
+  Sending test email to: saiteja.keerty@gmail.com
+
+  [1/1] Mitre Media � Tech Lead Databricks Data Engineer
+Failed: 'charmap' codec can't encode character '\U0001f4e4' in position 2: character maps to <undefined>
+
+======================================================================
+  Test emails sent to: saiteja.keerty@gmail.com (0 emails)
+
+  Tests successful! Now:
+  1. Check your inbox at saiteja.keerty@gmail.com
+  2. If emails look good, change TEST_MODE = False
+  3. Run again to send to actual companies
+======================================================================
+
+Traceback (most recent call last):
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 385, in <module>
+    main()
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 381, in main
+    log_results(all_results, OUTPUT_FILE)
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 262, in log_results
+    print(f"  \U0001f4dd Log saved to: {filename}")
+  File "C:\Users\saite\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4dd' in position 2: character maps to <undefined>
+[Tue 03/17/2026 13:53:03.74] Email sending completed 
+[Tue 03/17/2026 13:53:22.29] Starting automated email sending 
+
+======================================================================
+  EMAIL SENDER FOR JOB APPLICATIONS
+======================================================================
+
+  WARNING: REAL SEND MODE � Actually send emails? (yes/no):   Reading C:\Users\saite\OneDrive\Documents\Agent applies\job_applications.xlsx...
+  TEST MODE � using first job found
+
+  Sending test email to: saiteja.keerty@gmail.com
+
+  [1/1] Mitre Media � Tech Lead Databricks Data Engineer
+Failed: 'charmap' codec can't encode character '\U0001f4e4' in position 2: character maps to <undefined>
+
+======================================================================
+  Test emails sent to: saiteja.keerty@gmail.com (0 emails)
+
+  Tests successful! Now:
+  1. Check your inbox at saiteja.keerty@gmail.com
+  2. If emails look good, change TEST_MODE = False
+  3. Run again to send to actual companies
+======================================================================
+
+Traceback (most recent call last):
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 385, in <module>
+    main()
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 381, in main
+    log_results(all_results, OUTPUT_FILE)
+  File "C:\Users\saite\OneDrive\Documents\Agent applies\send_emails.py", line 262, in log_results
+    print(f"  \U0001f4dd Log saved to: {filename}")
+  File "C:\Users\saite\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4dd' in position 2: character maps to <undefined>
+[Tue 03/17/2026 13:53:24.95] Email sending completed 
+[Tue 03/17/2026 13:53:34.20] Starting automated email sending 
+
+======================================================================
+  EMAIL SENDER FOR JOB APPLICATIONS
+======================================================================
+
+  WARNING: REAL SEND MODE — Actually send emails? (yes/no):   Reading C:\Users\saite\OneDrive\Documents\Agent applies\job_applications.xlsx...
+  TEST MODE — using first job found
+
+  Sending test email to: saiteja.keerty@gmail.com
+
+  [1/1] Mitre Media — Tech Lead Databricks Data Engineer
+  📤 Sending to saiteja.keerty@gmail.com... Sent!
+
+======================================================================
+  Test emails sent to: saiteja.keerty@gmail.com (1 emails)
+
+  Tests successful! Now:
+  1. Check your inbox at saiteja.keerty@gmail.com
+  2. If emails look good, change TEST_MODE = False
+  3. Run again to send to actual companies
+======================================================================
+
+  📝 Log saved to: C:\Users\saite\OneDrive\Documents\Agent applies\send_log.txt
+[Tue 03/17/2026 13:53:38.22] Email sending completed 
+[Tue 03/17/2026 14:06:34.26] Starting automated email sending 
+
+======================================================================
+  EMAIL SENDER FOR JOB APPLICATIONS
+======================================================================
+
+  WARNING: DRY RUN MODE — Just showing what WOULD be sent
+  Set DRY_RUN = False in the script to actually send emails
+
+  Reading C:\Users\saite\OneDrive\Documents\Agent applies\job_applications.xlsx...
+  Found 5 jobs marked as 'Applied'
+
+  [1/5] Mitre Media — Tech Lead Databricks Data Engineer
+    Trying: careers@mitre.com
+
+======================================================================
+DRY RUN — Would send to: careers@mitre.com
+======================================================================
+TO: careers@mitre.com
+SUBJECT: Application: Tech Lead Databricks Data Engineer at Mitre Media - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Tech Lead Databricks Data Engineer position at Mitre Media. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to careers@mitre.com
+    Trying: hiring@mitre.com
+
+======================================================================
+DRY RUN — Would send to: hiring@mitre.com
+======================================================================
+TO: hiring@mitre.com
+SUBJECT: Application: Tech Lead Databricks Data Engineer at Mitre Media - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Tech Lead Databricks Data Engineer position at Mitre Media. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hiring@mitre.com
+    Trying: hr@mitre.com
+
+======================================================================
+DRY RUN — Would send to: hr@mitre.com
+======================================================================
+TO: hr@mitre.com
+SUBJECT: Application: Tech Lead Databricks Data Engineer at Mitre Media - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Tech Lead Databricks Data Engineer position at Mitre Media. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hr@mitre.com
+  [2/5] Bikeleasing-Service GmbH & Co. KG — Lead IT Operations Engineer (gn)
+    Trying: careers@bikeleasingservice.com
+
+======================================================================
+DRY RUN — Would send to: careers@bikeleasingservice.com
+======================================================================
+TO: careers@bikeleasingservice.com
+SUBJECT: Application: Lead IT Operations Engineer (gn) at Bikeleasing-Service GmbH & Co. KG - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Lead IT Operations Engineer (gn) position at Bikeleasing-Service GmbH & Co. KG. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to careers@bikeleasingservice.com
+    Trying: hiring@bikeleasingservice.com
+
+======================================================================
+DRY RUN — Would send to: hiring@bikeleasingservice.com
+======================================================================
+TO: hiring@bikeleasingservice.com
+SUBJECT: Application: Lead IT Operations Engineer (gn) at Bikeleasing-Service GmbH & Co. KG - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Lead IT Operations Engineer (gn) position at Bikeleasing-Service GmbH & Co. KG. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hiring@bikeleasingservice.com
+    Trying: hr@bikeleasingservice.com
+
+======================================================================
+DRY RUN — Would send to: hr@bikeleasingservice.com
+======================================================================
+TO: hr@bikeleasingservice.com
+SUBJECT: Application: Lead IT Operations Engineer (gn) at Bikeleasing-Service GmbH & Co. KG - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Lead IT Operations Engineer (gn) position at Bikeleasing-Service GmbH & Co. KG. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hr@bikeleasingservice.com
+  [3/5] Bikeleasing-Service GmbH & Co. KG — Senior IT Operations Engineer (gn)
+    Trying: careers@bikeleasingservice.com
+
+======================================================================
+DRY RUN — Would send to: careers@bikeleasingservice.com
+======================================================================
+TO: careers@bikeleasingservice.com
+SUBJECT: Application: Senior IT Operations Engineer (gn) at Bikeleasing-Service GmbH & Co. KG - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Senior IT Operations Engineer (gn) position at Bikeleasing-Service GmbH & Co. KG. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to careers@bikeleasingservice.com
+    Trying: hiring@bikeleasingservice.com
+
+======================================================================
+DRY RUN — Would send to: hiring@bikeleasingservice.com
+======================================================================
+TO: hiring@bikeleasingservice.com
+SUBJECT: Application: Senior IT Operations Engineer (gn) at Bikeleasing-Service GmbH & Co. KG - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Senior IT Operations Engineer (gn) position at Bikeleasing-Service GmbH & Co. KG. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hiring@bikeleasingservice.com
+    Trying: hr@bikeleasingservice.com
+
+======================================================================
+DRY RUN — Would send to: hr@bikeleasingservice.com
+======================================================================
+TO: hr@bikeleasingservice.com
+SUBJECT: Application: Senior IT Operations Engineer (gn) at Bikeleasing-Service GmbH & Co. KG - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Senior IT Operations Engineer (gn) position at Bikeleasing-Service GmbH & Co. KG. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hr@bikeleasingservice.com
+  [4/5] Marketerx — Senior DevOps Engineer
+    Trying: careers@marketerx.com
+
+======================================================================
+DRY RUN — Would send to: careers@marketerx.com
+======================================================================
+TO: careers@marketerx.com
+SUBJECT: Application: Senior DevOps Engineer at Marketerx - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Senior DevOps Engineer position at Marketerx. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to careers@marketerx.com
+    Trying: hiring@marketerx.com
+
+======================================================================
+DRY RUN — Would send to: hiring@marketerx.com
+======================================================================
+TO: hiring@marketerx.com
+SUBJECT: Application: Senior DevOps Engineer at Marketerx - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Senior DevOps Engineer position at Marketerx. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hiring@marketerx.com
+    Trying: hr@marketerx.com
+
+======================================================================
+DRY RUN — Would send to: hr@marketerx.com
+======================================================================
+TO: hr@marketerx.com
+SUBJECT: Application: Senior DevOps Engineer at Marketerx - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Senior DevOps Engineer position at Marketerx. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hr@marketerx.com
+  [5/5] Wavestone Germany AG — Senior Java-Entwickler (m/w/d) (Ref.Nr.: 46354)
+    Trying: careers@wavestone.com
+
+======================================================================
+DRY RUN — Would send to: careers@wavestone.com
+======================================================================
+TO: careers@wavestone.com
+SUBJECT: Application: Senior Java-Entwickler (m/w/d) (Ref.Nr.: 46354) at Wavestone Germany AG - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Senior Java-Entwickler (m/w/d) (Ref.Nr.: 46354) position at Wavestone Germany AG. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to careers@wavestone.com
+    Trying: hiring@wavestone.com
+
+======================================================================
+DRY RUN — Would send to: hiring@wavestone.com
+======================================================================
+TO: hiring@wavestone.com
+SUBJECT: Application: Senior Java-Entwickler (m/w/d) (Ref.Nr.: 46354) at Wavestone Germany AG - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Senior Java-Entwickler (m/w/d) (Ref.Nr.: 46354) position at Wavestone Germany AG. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hiring@wavestone.com
+    Trying: hr@wavestone.com
+
+======================================================================
+DRY RUN — Would send to: hr@wavestone.com
+======================================================================
+TO: hr@wavestone.com
+SUBJECT: Application: Senior Java-Entwickler (m/w/d) (Ref.Nr.: 46354) at Wavestone Germany AG - 5 years
+FROM: Saiteja Keerty <saiteja.keerty@gmail.com>
+ATTACHMENT: Saiteja_keerty_Resume.pdf
+
+Hello,
+
+I hope you are doing well.
+
+I am writing to express my strong interest in the Senior Java-Entwickler (m/w/d) (Ref.Nr.: 46354) position at Wavestone Germany AG. With dedicated experience in data engineering, I have worked for both startups and multinational companies (MNCs) where I specialized in building systems from scratch and developing end-to-end pipelines. My background includes successfully delivering R&D projects and proofs of concept (POCs).
+
+I bring significant expertise in:
+• Databricks & Cloud platforms (AWS, Azure, GCP)
+• ETL pipelines & data architecture
+• Languages: Python, SQL, Data Science and AI tools
+• Infrastructure tools: Airflow, Terraform
+• Startup & MNC experience in R&D projects and building POCs
+
+I am confident that my skills and experience align closely with what you're looking for. Please find my resume attached for your review.
+
+I am available to start immediately and would welcome the opportunity to discuss how my background can contribute to your team.
+
+Thank you for your time and consideration. I look forward to hearing from you.
+
+Best regards,
+Saiteja Keerty
+203-901-6018
+saiteja.keerty@gmail.com
+
+---
+Sent using Job Hunter Agent
+
+======================================================================
+
+    FAILED: Could not send to hr@wavestone.com
+
+======================================================================
+  PREVIEW COMPLETE — 0 emails shown above
+
+  NEXT STEPS:
+  1. Review the email previews above
+  2. If they look good, change DRY_RUN = False
+  3. Run this script again to send for real
+======================================================================
+
+  Log saved to: C:\Users\saite\OneDrive\Documents\Agent applies\send_log.txt
+[Tue 03/17/2026 14:06:34.95] Email sending completed 
+[Tue 03/17/2026 14:06:50.05] Starting automated email sending 
+
+======================================================================
+  EMAIL SENDER FOR JOB APPLICATIONS
+======================================================================
+
+  WARNING: REAL SEND MODE — Actually send emails? (yes/no):   Reading C:\Users\saite\OneDrive\Documents\Agent applies\job_applications.xlsx...
+  Found 5 jobs marked as 'Applied'
+
+  [1/5] Mitre Media — Tech Lead Databricks Data Engineer
+    Trying: careers@mitre.com
+  📤 Sending to careers@mitre.com... Sent!
+    SUCCESS: Email sent to careers@mitre.com
+  [2/5] Bikeleasing-Service GmbH & Co. KG — Lead IT Operations Engineer (gn)
+    Trying: careers@bikeleasingservice.com
+  📤 Sending to careers@bikeleasingservice.com... Sent!
+    SUCCESS: Email sent to careers@bikeleasingservice.com
+  [3/5] Bikeleasing-Service GmbH & Co. KG — Senior IT Operations Engineer (gn)
+    Trying: careers@bikeleasingservice.com
+  📤 Sending to careers@bikeleasingservice.com... Sent!
+    SUCCESS: Email sent to careers@bikeleasingservice.com
+  [4/5] Marketerx — Senior DevOps Engineer
+    Trying: careers@marketerx.com
+  📤 Sending to careers@marketerx.com... Sent!
+    SUCCESS: Email sent to careers@marketerx.com
+  [5/5] Wavestone Germany AG — Senior Java-Entwickler (m/w/d) (Ref.Nr.: 46354)
+    Trying: careers@wavestone.com
+  📤 Sending to careers@wavestone.com... Sent!
+    SUCCESS: Email sent to careers@wavestone.com
+
+======================================================================
+  Sent to companies: 0 emails
+======================================================================
+
+  Log saved to: C:\Users\saite\OneDrive\Documents\Agent applies\send_log.txt
+[Tue 03/17/2026 14:07:09.04] Email sending completed 
