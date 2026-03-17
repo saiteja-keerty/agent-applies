@@ -50,7 +50,7 @@ RESUME_FILE     = "Saiteja_keerty_Resume.pdf" # Your resume file (paste your res
 # Email settings
 SMTP_HOST       = "smtp.gmail.com"             # Gmail SMTP
 SMTP_PORT       = 587                          # TLS port
-DRY_RUN         = True                        # Set to False to ACTUALLY send emails
+DRY_RUN         = False                        # Set to False to ACTUALLY send emails
 MAX_EMAILS      = 5                            # Limit number of emails to send (set to None for all)
                                                 # First run with True to preview!
 
@@ -59,6 +59,7 @@ MAX_EMAILS      = 5                            # Limit number of emails to send 
 # Input/Output files
 PROJECT_FOLDER  = os.path.dirname(os.path.abspath(__file__))  # Script's folder
 INPUT_FILE      = os.path.join(PROJECT_FOLDER, "job_applications.xlsx")  # From job_hunter.py
+PROFESSIONALS_FILE = os.path.join(PROJECT_FOLDER, "professional_contacts.json")  # Professional contacts
 OUTPUT_FILE     = os.path.join(PROJECT_FOLDER, "send_log.txt")  # Log of what was sent
 
 # DUPLICATE PREVENTION
@@ -97,9 +98,46 @@ Best regards,
 Sent using own Job Agent - open source built by me - sorry if spammed you!:
 """
 
+# Personalized email template for professionals
+PERSONAL_EMAIL_TEMPLATE = """Hi {person_name},
+
+I hope you are doing well.
+
+I'm reaching out because I admire the work you've been doing at {company}. I'm a data engineer with 5+ years of experience in building scalable data pipelines and ETL workflows, and I'm particularly interested in opportunities to contribute to your team.
+
+My background includes:
+• Designing scalable Terraform modules for Databricks, AWS, and Redshift
+• Building end-to-end ETL pipelines using Airflow, Spark, and modern cloud platforms
+• Implementing data observability solutions and governance policies
+• Successfully delivering R&D projects and POCs for startups and multinational companies
+• Experience with AWS, GCP, Azure, and multiple data platforms
+
+I'd love to discuss how my experience can benefit {company}. Please find my resume attached.
+
+I'm available for a quick call or meeting at your convenience.
+
+Best regards,
+{sender_name}
+{sender_phone}
+{sender_email}
+
+---
+Sent using own Job Agent - open source built by me"""
+
 # ─────────────────────────────────────────────
 #  📧  EMAIL SENDER LOGIC
 # ─────────────────────────────────────────────
+
+def load_professional_contacts() -> dict:
+    """Load professional contacts from JSON file."""
+    if os.path.exists(PROFESSIONALS_FILE):
+        try:
+            with open(PROFESSIONALS_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            return {}
+    return {}
+
 
 def load_sent_emails():
     """Load previously sent emails to prevent duplicates."""
@@ -186,6 +224,18 @@ def build_email_body(job: dict, sender_name: str, sender_email: str, sender_phon
     return body
 
 
+def build_personal_email_body(person_name: str, company: str, sender_name: str, sender_email: str, sender_phone: str) -> str:
+    """Build personalized email body for professionals."""
+    body = PERSONAL_EMAIL_TEMPLATE.format(
+        person_name=person_name,
+        company=company,
+        sender_name=sender_name,
+        sender_email=sender_email,
+        sender_phone=sender_phone,
+    )
+    return body
+
+
 # Additional email finding functions (copied from job_hunter.py)
 
 HEADERS = {
@@ -219,9 +269,9 @@ def guess_emails(company: str, company_url: str) -> list[str]:
     emails = [
         f"careers@{domain}",
         f"hr@{domain}",
-        f"recruiting@{domain}",
-        f"hiring@{domain}",
-        f"jobs@{domain}",
+      #  f"recruiting@{domain}",
+      #  f"hiring@{domain}",
+      #  f"jobs@{domain}",
     ]
     return emails
 
@@ -271,125 +321,26 @@ def get_emails_from_hunter(domain: str) -> list[str]:
 
 def search_linkedin_professionals(job_title: str, company: str) -> list[str]:
     """
-    Search LinkedIn for professionals (HR/hiring managers) via Google search.
-    Uses site:linkedin.com search to find relevant profiles and emails.
+    Return empty list - LinkedIn searches are too slow/unreliable.
+    Professional contacts will come from job_hunter.py scraping instead.
     """
-    emails = []
-    try:
-        # Search for HR professionals at the company
-        search_queries = [
-            f"site:linkedin.com {company} HR hiring manager",
-            f"site:linkedin.com {company} recruiting",
-            f"site:linkedin.com {company} \"recruiter\" email",
-            f"site:linkedin.com {company} CEO",
-            f"site:linkedin.com {company} CTO",
-            f"site:linkedin.com {company} head of engineering",
-            f"site:linkedin.com {company} talent acquisition",
-        ]
-        
-        for query in search_queries:
-            try:
-                # Use Google Custom Search via requests with proper headers
-                google_url = f"https://www.google.com/search?q={query.replace(' ', '+')}"
-                resp = requests.get(google_url, headers=HEADERS, timeout=10)
-                soup = BeautifulSoup(resp.text, "html.parser")
-                
-                # Extract emails from search results
-                email_pattern = r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
-                found_emails = re.findall(email_pattern, resp.text)
-                emails.extend([e for e in found_emails if verify_email_syntax(e)])
-                time.sleep(0.5)  # be respectful
-            except Exception as e:
-                continue
-        
-        return list(set(emails))[:10]  # deduplicate and limit
-    except Exception as e:
-        print(f"    ⚠️  LinkedIn search error: {e}")
-        return []
+    return []
 
 
 def search_google_for_emails(job_title: str, company: str) -> list[str]:
     """
-    Search Google for professional emails related to job title and company.
-    Targets HR, hiring managers, recruiters, etc.
+    Return empty list - Google searches are too slow/unreliable for sending.
+    Professional contacts will come from job_hunter.py scraping instead.
     """
-    emails = []
-    try:
-        search_queries = [
-            f"{company} {job_title} HR email contact",
-            f"{company} hiring manager {job_title} email",
-            f"{company} \"careers@\" OR \"hr@\" OR \"recruiting@\"",
-            f"{company} recruiter contact email",
-            f"{company} CEO email",
-            f"{company} CTO email",
-            f"{company} head of engineering email",
-            f"{company} talent acquisition email",
-        ]
-        
-        for query in search_queries:
-            try:
-                # Use Google search
-                google_url = f"https://www.google.com/search?q={query.replace(' ', '+')}"
-                resp = requests.get(google_url, headers=HEADERS, timeout=10)
-                
-                # Extract emails from search results
-                email_pattern = r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
-                found_emails = re.findall(email_pattern, resp.text)
-                emails.extend([e for e in found_emails if verify_email_syntax(e)])
-                time.sleep(0.5)  # be respectful
-            except Exception as e:
-                continue
-        
-        return list(set(emails))[:15]  # deduplicate and limit to 15
-    except Exception as e:
-        print(f"    ⚠️  Google search error: {e}")
-        return []
+    return []
 
 
 def search_professional_networks(company: str, job_title: str) -> list[str]:
     """
-    Search multiple professional networks and job boards for emails.
-    Looks for contact pages, careers pages, team listings.
+    Return empty list - Website scraping is too slow/unreliable.
+    Professional contacts will come from job_hunter.py scraping and guesses.
     """
-    emails = []
-    domain = get_domain_from_url(f"https://{company.lower().replace(' ', '')}.com")
-    
-    # Common professional contact page paths
-    contact_paths = [
-        "/careers",
-        "/about/team",
-        "/contact",
-        "/company",
-        "/about",
-        "/jobs",
-        "/hr",
-        "/recruiting",
-        "/team",
-        "/leadership",
-    ]
-    
-    for path in contact_paths:
-        try:
-            # Try common company domain structures
-            urls_to_try = [
-                f"https://{domain}{path}",
-                f"https://www.{domain}{path}",
-            ]
-            
-            for url in urls_to_try:
-                try:
-                    resp = requests.get(url, headers=HEADERS, timeout=5)
-                    # Extract emails
-                    email_pattern = r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
-                    found_emails = re.findall(email_pattern, resp.text)
-                    emails.extend([e for e in found_emails if verify_email_syntax(e)])
-                except:
-                    continue
-            time.sleep(0.3)
-        except Exception as e:
-            continue
-    
-    return list(set(emails))[:10]
+    return [][:10]
 
 
 def verify_email_syntax(email: str) -> bool:
@@ -399,54 +350,35 @@ def verify_email_syntax(email: str) -> bool:
 
 
 def find_additional_emails(job: dict) -> list[str]:
-    """Find additional emails for a job by searching Google, LinkedIn, etc."""
+    """Find additional emails for a job - fast version without slow searches."""
     company = job.get("company", "")
-    job_title = job.get("title", job.get("job_title", ""))
     company_url = job.get("company_url", job.get("url", ""))
 
-    print(f"    🔍 Finding additional emails for {company}...")
-
-    # Scrape emails from company website and job posting
-    scraped = []
-    urls_to_scrape = [company_url, job.get("url", "")]
-    for url in urls_to_scrape:
-        if url:
-            scraped.extend(scrape_emails_from_url(url))
-            time.sleep(0.5)
-
-    # Get emails from Hunter.io
-    domain = get_domain_from_url(company_url)
-    hunter_emails = get_emails_from_hunter(domain)
-
-    # Search LinkedIn for HR professionals
-    linkedin_emails = search_linkedin_professionals(job_title, company)
-
-    # Search Google for emails
-    google_emails = search_google_for_emails(job_title, company)
-
-    # Search professional networks (careers pages, team pages, etc)
-    network_emails = search_professional_networks(company, job_title)
-
-    # Guess emails (last resort)
+    # For now, just use guessed emails (careers@, hr@, etc)
+    # Professional contacts will come from job_hunter.py professional_contacts.json
     guessed = guess_emails(company, company_url)
-
-    # Combine and deduplicate
-    all_emails = list(set(scraped + hunter_emails + linkedin_emails + google_emails + network_emails + guessed))
-    print(f"    Found {len(all_emails)} additional emails")
-    return all_emails[:20]  # limit to 20 additional emails
+    
+    return guessed
 
 
 def send_email(recipient_email: str, job: dict, sender_email: str, sender_password: str, 
-               sender_name: str, sender_phone: str, dry_run: bool = True) -> dict:
+               sender_name: str, sender_phone: str, dry_run: bool = True, person_name: str = None, is_personal: bool = False) -> dict:
     """Send an individual email."""
     
-    subject = f"Application: {job['job_title']} at {job['company']} - 5 years"
-    body = build_email_body(job, sender_name, sender_email, sender_phone)
+    company = job["company"]
+    if is_personal and person_name:
+        subject = f"Connecting: Data Engineer at {company}"
+        body = build_personal_email_body(person_name, company, sender_name, sender_email, sender_phone)
+    else:
+        subject = f"Application: {job['job_title']} at {job['company']} - 5 years"
+        body = build_email_body(job, sender_name, sender_email, sender_phone)
     
     result = {
         "company": job["company"],
         "job_title": job["job_title"],
         "recipient": recipient_email,
+        "person_name": person_name,
+        "is_personal": is_personal,
         "status": "PREVIEW" if dry_run else "SENT",
         "timestamp": datetime.now().isoformat(),
         "error": None,
@@ -454,7 +386,7 @@ def send_email(recipient_email: str, job: dict, sender_email: str, sender_passwo
     
     if dry_run:
         print(f"\n{'='*70}")
-        print(f"DRY RUN — Would send to: {recipient_email}")
+        print(f"DRY RUN — Would send to: {recipient_email}" + (f" ({person_name})" if person_name else ""))
         print(f"{'='*70}")
         print(f"TO: {recipient_email}")
         print(f"SUBJECT: {subject}")
@@ -482,7 +414,8 @@ def send_email(recipient_email: str, job: dict, sender_email: str, sender_passwo
             part.add_header("Content-Disposition", f"attachment; filename= {RESUME_FILE}")
             msg.attach(part)
         
-        print(f"  Sending to {recipient_email}...", end=" ")
+        person_info = f" ({person_name})" if person_name else ""
+        print(f"  Sending to {recipient_email}{person_info}...", end=" ")
         
         with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
             server.starttls()
@@ -510,8 +443,12 @@ def log_results(results: list[dict], filename: str):
             f.write(f"Company: {result['company']}\n")
             f.write(f"Job: {result['job_title']}\n")
             f.write(f"Recipient: {result['recipient']}\n")
+            if result.get('person_name'):
+                f.write(f"Person: {result['person_name']}\n")
+            if result.get('is_personal'):
+                f.write(f"Type: Personalized Email\n")
             f.write(f"Status: {result['status']}\n")
-            if result['error']:
+            if result.get('error'):
                 f.write(f"Error: {result['error']}\n")
             f.write(f"Time: {result['timestamp']}\n")
             f.write("-"*70 + "\n\n")
@@ -555,6 +492,11 @@ def main():
     
     all_results = []
     
+    # Load professional contacts
+    print(f"  Loading professional contacts...")
+    professional_contacts = load_professional_contacts()
+    print(f"  Found professional contacts for {len(professional_contacts)} companies\n")
+    
     # Send emails to ALL jobs
     for i, job in enumerate(jobs, 1):
         print(f"  [{i}/{len(jobs)}] {job['company']} — {job['job_title']}")
@@ -572,54 +514,181 @@ def main():
         
         if not emails_to_try:
             print(f"    WARNING: No email found, skipping...")
-            continue
+        else:
+            # Try each email address until one succeeds
+            email_sent = False
+            for target_email in emails_to_try:
+                # Check for duplicates
+                if is_email_already_sent(job["company"], job["job_title"], target_email):
+                    print(f"    WARNING: Already sent to {target_email}, trying next...")
+                    continue
+                
+                print(f"    Trying: {target_email}")
+                result = send_email(
+                    recipient_email=target_email,
+                    job=job,
+                    sender_email=SENDER_EMAIL,
+                    sender_password=SENDER_PASSWORD,
+                    sender_name=SENDER_NAME,
+                    sender_phone=SENDER_PHONE,
+                    dry_run=DRY_RUN,
+                    is_personal=False
+                )
+                
+                # Mark as sent if successful
+                if result["status"] == "SENT" and not DRY_RUN:
+                    save_sent_email(job["company"], job["job_title"], target_email)
+                    update_excel_status(job["excel_row"], "Sent")
+                    email_sent = True
+                    print(f"    SUCCESS: Email sent to {target_email}")
+                    break
+                else:
+                    print(f"    FAILED: Could not send to {target_email}")
+            
+            if not email_sent and not DRY_RUN:
+                print(f"    ERROR: Failed to send to any email address for this job")
+                result = {
+                    "company": job["company"],
+                    "job_title": job["job_title"],
+                    "recipient": " | ".join(emails_to_try),
+                    "person_name": None,
+                    "is_personal": False,
+                    "status": "FAILED",
+                    "timestamp": datetime.now().isoformat(),
+                    "error": "All email addresses failed",
+                }
+                all_results.append(result)
         
-        # Try each email address until one succeeds
-        email_sent = False
-        for target_email in emails_to_try:
-            # Check for duplicates
-            if is_email_already_sent(job["company"], job["job_title"], target_email):
-                print(f"    WARNING: Already sent to {target_email}, trying next...")
+        # Send personalized emails to professional contacts from this job
+        job_professionals = job.get("professional_contacts", [])
+        if job_professionals:
+            print(f"    📝 Sending personalized emails to {len(job_professionals)} professionals...")
+            for prof in job_professionals:
+                prof_email = prof.get("email") if isinstance(prof, dict) else prof
+                prof_name = prof.get("name") if isinstance(prof, dict) else "Professional"
+                
+                if not prof_email:
+                    continue
+                
+                # Check for duplicates
+                if is_email_already_sent(job["company"], job["job_title"], prof_email):
+                    print(f"      Already sent to {prof_email}, skipping...")
+                    continue
+                
+                print(f"      Sending to {prof_name} ({prof_email})...")
+                result = send_email(
+                    recipient_email=prof_email,
+                    job=job,
+                    sender_email=SENDER_EMAIL,
+                    sender_password=SENDER_PASSWORD,
+                    sender_name=SENDER_NAME,
+                    sender_phone=SENDER_PHONE,
+                    dry_run=DRY_RUN,
+                    person_name=prof_name,
+                    is_personal=True
+                )
+                
+                all_results.append(result)
+                
+                if result["status"] == "SENT" and not DRY_RUN:
+                    save_sent_email(job["company"], job["job_title"], prof_email)
+                    print(f"      SUCCESS: Personalized email sent to {prof_name}")
+                    time.sleep(1)  # Rate limit
+                else:
+                    print(f"      FAILED: Could not send to {prof_name}")
+        
+        # Send personalized emails to professional contacts
+        company_lower = job.get('company', '').lower()
+        prof_contacts = professional_contacts.get(company_lower, {}).get('contacts', [])
+        
+        if prof_contacts:
+            print(f"    📝 Sending personalized emails to {len(prof_contacts)} professionals...")
+            for prof in prof_contacts:
+                prof_email = prof.get("email") if isinstance(prof, dict) else prof
+                prof_name = prof.get("name") if isinstance(prof, dict) else "Professional"
+                
+                if not prof_email or not isinstance(prof_email, str):
+                    continue
+                
+                # Check for duplicates
+                if is_email_already_sent(job["company"], job["job_title"], prof_email):
+                    print(f"      Already sent to {prof_email}, skipping...")
+                    continue
+                
+                print(f"      Sending to {prof_name} ({prof_email})...")
+                result = send_email(
+                    recipient_email=prof_email,
+                    job=job,
+                    sender_email=SENDER_EMAIL,
+                    sender_password=SENDER_PASSWORD,
+                    sender_name=SENDER_NAME,
+                    sender_phone=SENDER_PHONE,
+                    dry_run=DRY_RUN,
+                    person_name=prof_name,
+                    is_personal=True
+                )
+                
+                all_results.append(result)
+                
+                if result["status"] == "SENT" and not DRY_RUN:
+                    save_sent_email(job["company"], job["job_title"], prof_email)
+                    print(f"      SUCCESS: Personalized email sent to {prof_name}")
+                    time.sleep(1)  # Rate limit
+                else:
+                    print(f"      FAILED: Could not send to {prof_name}")
+        
+        if not DRY_RUN:
+            time.sleep(2)  # Rate limit — don't spam
+    
+    # Send emails to professional contacts not yet assigned to a job
+    print(f"\n  📧 Sending to additional professional contacts...")
+    for company_key, prof_data in professional_contacts.items():
+        for prof in prof_data.get('contacts', []):
+            prof_email = prof.get("email") if isinstance(prof, dict) else prof
+            prof_name = prof.get("name") if isinstance(prof, dict) else "Professional"
+            company_name = prof_data.get('company', company_key)
+            
+            if not prof_email or not isinstance(prof_email, str):
                 continue
             
-            print(f"    Trying: {target_email}")
+            # Check for duplicates across all jobs
+            already_sent = False
+            for job in jobs:
+                if is_email_already_sent(job["company"], job["job_title"], prof_email):
+                    already_sent = True
+                    break
+            
+            if already_sent:
+                continue
+            
+            # Create a generic job info for this contact
+            generic_job = {
+                "company": company_name,
+                "job_title": "Data Engineering Role",
+            }
+            
+            print(f"    Sending to {prof_name} at {company_name} ({prof_email})...")
             result = send_email(
-                recipient_email=target_email,
-                job=job,
+                recipient_email=prof_email,
+                job=generic_job,
                 sender_email=SENDER_EMAIL,
                 sender_password=SENDER_PASSWORD,
                 sender_name=SENDER_NAME,
                 sender_phone=SENDER_PHONE,
-                dry_run=DRY_RUN
+                dry_run=DRY_RUN,
+                person_name=prof_name,
+                is_personal=True
             )
             
-            # Mark as sent if successful
-            if result["status"] == "SENT" and not DRY_RUN:
-                save_sent_email(job["company"], job["job_title"], target_email)
-                # Update Excel status
-                update_excel_status(job["excel_row"], "Sent")
-                email_sent = True
-                print(f"    SUCCESS: Email sent to {target_email}")
-                break  # Stop trying other emails for this job
-            else:
-                print(f"    FAILED: Could not send to {target_email}")
-        
-        if not email_sent and not DRY_RUN:
-            print(f"    ERROR: Failed to send to any email address for this job")
-            # Still add to results for logging
-            result = {
-                "company": job["company"],
-                "job_title": job["job_title"],
-                "recipient": " | ".join(emails_to_try),
-                "status": "FAILED",
-                "timestamp": datetime.now().isoformat(),
-                "error": "All email addresses failed",
-            }
             all_results.append(result)
-            continue
-        
-        if not DRY_RUN:
-            time.sleep(2)  # Rate limit — don't spam
+            
+            if result["status"] == "SENT" and not DRY_RUN:
+                save_sent_email(company_name, "Data Engineering Role", prof_email)
+                print(f"    SUCCESS: Personalized email sent to {prof_name}")
+                time.sleep(1)
+            
+            if not DRY_RUN:
+                time.sleep(1)
     
     # Summary
     print("\n" + "="*70)
