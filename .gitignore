@@ -3,6 +3,7 @@ job_applications.xlsx
 Saiteja_keerty_Resume.pdf
 resume.pdf
 send_log.txt
+sent_emails.json
 
 # Python
 __pycache__/
