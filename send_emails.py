@@ -37,12 +37,18 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, use system env vars
+
 # ─────────────────────────────────────────────
 #  YOUR EMAIL CONFIGURATION — EDIT THESE
 # ─────────────────────────────────────────────
 
 SENDER_EMAIL    = "saiteja.keerty@gmail.com"      # Your Gmail or email
-SENDER_PASSWORD = "kvqx howr gfdg fpsv"       # Gmail App Password (16 chars)
+SENDER_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "YOUR_APP_PASSWORD_HERE")       # Gmail App Password (16 chars)
 SENDER_NAME     = "Saiteja Keerty"                   # Your name
 SENDER_PHONE    = "203-901-6018"              # Your phone number
 RESUME_FILE     = "Saiteja_keerty_Resume.pdf" # Your resume file (paste your resume as PDF in this folder)

@@ -33,6 +33,12 @@ from bs4 import BeautifulSoup
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, use system env vars
+
 # ─────────────────────────────────────────────
 #  ⚙️  YOUR CONFIGURATION — EDIT THESE
 # ─────────────────────────────────────────────
@@ -44,7 +50,7 @@ YOUR_LINKEDIN   = "https://www.linkedin.com/in/saiteja-keerty669073190/"
 
 # Job search settings
 JOB_TITLES      = ["data engineer", "Devops engineer", "platform data engineer", "aws data engineer"]  # add more titles as needed
-LOCATION        = "Remote" or "New York" or "USA"  # or "New York" or "London"
+LOCATION        = "Remote" or "New York" or "USA" or "Houston"  # or "New York" or "London"
 MAX_JOBS        = 50      # how many jobs to collect per run
 
 # Your resume as plain text (paste it here)
@@ -120,7 +126,7 @@ GROQ_API_KEY    = os.getenv("GROQ_API_KEY", "YOUR_GROQ_API_KEY_HERE")   # get at
 USE_AI          = False   # set False to skip cover letter generation
 
 # Hunter.io for finding professional emails (free tier: 150/month)
-HUNTER_API_KEY  = "b54fa43ede0d69f76a2e2bdc2f565e092252e152"  # get at hunter.io, optional
+HUNTER_API_KEY  = os.getenv("HUNTER_API_KEY", "YOUR_HUNTER_API_KEY_HERE")  # get at hunter.io, optional
 
 # Google Search API (optional - for finding emails via Google)
 GOOGLE_API_KEY  = ""  # get from serpapi.com or programmablesearchengine.com
@@ -128,6 +134,7 @@ SERP_API_KEY    = ""  # SerpAPI key for Google searches
 
 # Output file
 OUTPUT_FILE     = "job_applications.xlsx"
+PROFESSIONALS_FILE = "professional_contacts.json"  # Store found professionals
 
 
 # ─────────────────────────────────────────────
@@ -274,8 +281,111 @@ def scrape_monster(job_title: str, max_results: int = 10) -> list[dict]:
     return jobs
 
 
+def scrape_indeed(job_title: str, max_results: int = 10) -> list[dict]:
+    """Scrape Indeed.com — major job board."""
+    print(f"  🌐 Scraping Indeed for: {job_title}")
+    jobs = []
+    try:
+        query = job_title.replace(" ", "+")
+        url = f"https://www.indeed.com/jobs?q={query}&l="
+        resp = requests.get(url, headers=HEADERS, timeout=10)
+        soup = BeautifulSoup(resp.text, "html.parser")
+        job_cards = soup.find_all("div", class_="job_seen_beacon")[:max_results]
+        for card in job_cards:
+            title_elem = card.find("h2", class_="jobTitle")
+            company_elem = card.find("span", class_="companyName")
+            location_elem = card.find("div", class_="companyLocation")
+            link_elem = card.find("a", class_="jcs-JobTitle")
+            desc_elem = card.find("div", class_="job-snippet")
+
+            jobs.append({
+                "title":       title_elem.get_text(strip=True) if title_elem else "",
+                "company":     company_elem.get_text(strip=True) if company_elem else "",
+                "location":    location_elem.get_text(strip=True) if location_elem else "",
+                "url":         f"https://www.indeed.com{link_elem.get('href')}" if link_elem else "",
+                "description": desc_elem.get_text(strip=True)[:500] if desc_elem else "",
+                "source":      "Indeed",
+                "date_found":  datetime.date.today().isoformat(),
+                "company_url": "",
+            })
+    except Exception as e:
+        print(f"    ⚠️  Indeed error: {e}")
+    return jobs
+
+
 # ─────────────────────────────────────────────
-#  📧  EMAIL FINDER
+#  �  PROFESSIONAL SCRAPER
+# ─────────────────────────────────────────────
+
+def scrape_linkedin_professionals(company: str, job_title: str, max_results: int = 10) -> list[dict]:
+    """Search LinkedIn for professionals at a company via Google search."""
+    professionals = []
+    try:
+        search_queries = [
+            f"site:linkedin.com {company} engineer",
+            f"site:linkedin.com {company} developer",
+            f"site:linkedin.com {company} tech lead",
+            f"site:linkedin.com {company} architect",
+        ]
+        
+        for query in search_queries:
+            try:
+                google_url = f"https://www.google.com/search?q={query.replace(' ', '+')}"
+                resp = requests.get(google_url, headers=HEADERS, timeout=10)
+                soup = BeautifulSoup(resp.text, "html.parser")
+                
+                # Extract LinkedIn profile URLs and emails from search results
+                email_pattern = r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
+                found_emails = re.findall(email_pattern, resp.text)
+                
+                for email in found_emails[:5]:
+                    if len(professionals) < max_results:
+                        professionals.append({"email": email, "company": company})
+                
+                time.sleep(0.5)
+            except Exception as e:
+                continue
+        
+        return professionals[:max_results]
+    except Exception as e:
+        print(f"    ⚠️  LinkedIn professional scraper error: {e}")
+        return []
+
+
+def scrape_github_professionals(company: str, max_results: int = 10) -> list[dict]:
+    """Search GitHub for developers at a company."""
+    professionals = []
+    try:
+        search_url = f"https://api.github.com/search/users?q=company:{company.replace(' ', '+')}&per_page={max_results}"
+        resp = requests.get(search_url, headers=HEADERS, timeout=10)
+        data = resp.json()
+        
+        for user in data.get('items', [])[:max_results]:
+            user_profile_url = user.get('html_url', '')
+            if user_profile_url:
+                # Try to extract email from profile
+                try:
+                    profile_resp = requests.get(user_profile_url, headers=HEADERS, timeout=5)
+                    email_pattern = r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
+                    found_emails = re.findall(email_pattern, profile_resp.text)
+                    if found_emails:
+                        professionals.append({
+                            'email': found_emails[0],
+                            'name': user.get('login', ''),
+                            'company': company,
+                            'profile_url': user_profile_url
+                        })
+                except:
+                    pass
+        
+        return professionals
+    except Exception as e:
+        print(f"    ⚠️  GitHub scraper error: {e}")
+        return []
+
+
+# ─────────────────────────────────────────────
+#  �📧  EMAIL FINDER
 # ─────────────────────────────────────────────
 
 
@@ -628,7 +738,7 @@ def main():
     # 1. Scrape jobs from all sources
     per_source = max(10, MAX_JOBS // len(JOB_TITLES))
     for title in JOB_TITLES:
-        for scraper in [scrape_remotive, scrape_arbeitnow, scrape_jobicy, scrape_dice, scrape_monster]:
+        for scraper in [scrape_remotive, scrape_arbeitnow, scrape_jobicy, scrape_dice, scrape_monster, scrape_indeed]:
             jobs = scraper(title, max_results=per_source)
             for job in jobs:
                 if job["url"] not in seen_urls and job["title"]:
@@ -641,6 +751,15 @@ def main():
     # 2. Find emails + generate cover letters
     for i, job in enumerate(all_jobs):
         print(f"  [{i+1}/{len(all_jobs)}] {job['company']} — {job['title']}")
+
+        # Find professional contacts
+        print(f"    👥 Searching for professionals at {job['company']}...")
+        linkedin_pros = scrape_linkedin_professionals(job['company'], job['title'], max_results=10)
+        github_pros = scrape_github_professionals(job['company'], max_results=10)
+        
+        professional_contacts = linkedin_pros + github_pros
+        print(f"    Found {len(professional_contacts)} professional contacts")
+        job["professional_contacts"] = professional_contacts[:15]
 
         # Scrape emails from company website and job posting
         scraped = []
@@ -684,10 +803,28 @@ def main():
     # 3. Write to Excel
     print(f"\n  📊 Writing to Excel...")
     write_to_excel(all_jobs, OUTPUT_FILE)
+    
+    # 4. Save professional contacts to JSON
+    print(f"  📝 Saving professional contacts...")
+    professionals_data = {}
+    for job in all_jobs:
+        company = job.get('company', '').lower()
+        if job.get('professional_contacts'):
+            professionals_data[company] = {
+                'company': job['company'],
+                'job_title': job['title'],
+                'contacts': job['professional_contacts']
+            }
+    
+    if professionals_data:
+        with open(PROFESSIONALS_FILE, 'w') as f:
+            json.dump(professionals_data, f, indent=2)
+        print(f"  Saved {len(professionals_data)} companies with professional contacts")
 
-    # 4. Summary
+    # 5. Summary
     print("\n" + "="*55)
     print(f"  ✅ DONE! {len(all_jobs)} jobs saved to {OUTPUT_FILE}")
+    print(f"  👥 {len(professionals_data)} companies with professional contacts saved")
     print("\n  NEXT STEPS:")
     print("  1. Open job_applications.xlsx")
     print("  2. Review jobs — delete irrelevant ones")
