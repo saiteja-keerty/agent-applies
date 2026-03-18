@@ -4,6 +4,7 @@ Saiteja_keerty_Resume.pdf
 resume.pdf
 send_log.txt
 sent_emails.json
+.env
 
 # Python
 __pycache__/
