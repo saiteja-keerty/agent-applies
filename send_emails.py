@@ -272,14 +272,18 @@ def guess_emails(company: str, company_url: str) -> list[str]:
         domain = f"{clean}.com"
 
     # Generate HR/careers emails (these are safe generic guesses)
-    emails = [
-        f"careers@{domain}",
-        f"hr@{domain}",
-      #  f"recruiting@{domain}",
-      #  f"hiring@{domain}",
-      #  f"jobs@{domain}",
-    ]
-    return emails
+    # NOTE: This is currently disabled to avoid sending to generic HR/careers addresses.
+    # If you want to re-enable, uncomment the emails list below.
+    # emails = [
+    #     f"careers@{domain}",
+    #     f"hr@{domain}",
+    #   #  f"recruiting@{domain}",
+    #   #  f"hiring@{domain}",
+    #   #  f"jobs@{domain}",
+    # ]
+    # return emails
+
+    return []
 
 
 def scrape_emails_from_url(url: str) -> list[str]:
@@ -507,13 +511,15 @@ def main():
     for i, job in enumerate(jobs, 1):
         print(f"  [{i}/{len(jobs)}] {job['company']} — {job['job_title']}")
         
-        # Determine target email(s) to try
+        # Determine target email(s) to try (from scraping / job posting)
         emails_to_try = [job["email_1"], job["email_2"], job["email_3"], job["email_4"], job["email_5"]]
         emails_to_try = [email for email in emails_to_try if email]  # Remove empty emails
-        
-        # Find additional emails from Google, LinkedIn, etc.
-        additional_emails = find_additional_emails(job)
-        emails_to_try.extend(additional_emails)
+
+        # NOTE: For now, we only send to emails that were scraped from the job posting.
+        # The automatic guesser for HR/careers emails is disabled to avoid sending to generic addresses.
+        # If you want to re-enable guesses, uncomment the lines below.
+        # additional_emails = find_additional_emails(job)
+        # emails_to_try.extend(additional_emails)
         
         # Remove duplicates
         emails_to_try = list(set(emails_to_try))
